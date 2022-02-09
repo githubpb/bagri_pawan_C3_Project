@@ -2,8 +2,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class RestaurantTest {
     Restaurant restaurant;
@@ -16,6 +19,7 @@ class RestaurantTest {
         restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
         restaurant.addToMenu("Sweet corn soup",119);
         restaurant.addToMenu("Vegetable lasagne", 269);
+        restaurant.addToMenu("Veg Noodles", 100);
     }
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>OPEN/CLOSED<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -55,5 +59,26 @@ class RestaurantTest {
         assertThrows(itemNotFoundException.class,
                 ()->restaurant.removeFromMenu("French fries"));
     }
+
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //<<<<<<<<<<<<<<<<<<<<<<<Failing test cases>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //<<<<<<<<<<<<<<<<<<<<<<<Price>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    @Test
+    public void added_items_price_should_not_be_zero() {
+        List<String> addedItems = new ArrayList<String>();
+        addedItems.add("Vegetable lasagne");
+        addedItems.add("Veg Noodles");
+        assertNotEquals(0, restaurant.getAddedItemPrice(addedItems));
+    }
+
+    @Test
+    public void added_items_price_should_be_match_with_actual_price() {
+        List<String> addedItems = new ArrayList<String>();
+        addedItems.add("Vegetable lasagne");
+        addedItems.add("Veg Noodles");
+        assertEquals(369, restaurant.getAddedItemPrice(addedItems));
+    }
+    //<<<<<<<<<<<<<<<<<<<<<<<Price>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
 }
