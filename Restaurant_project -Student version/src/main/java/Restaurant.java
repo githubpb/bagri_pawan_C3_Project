@@ -2,6 +2,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Restaurant {
     private String name;
@@ -65,7 +66,8 @@ public class Restaurant {
     }
 
     public int getAddedItemPrice(List<String> addedItems) {
-        return 0;
+        List<Item> itemsValues = menu.stream().filter(i -> addedItems.contains(i.getName())).collect(Collectors.toList());
+        return itemsValues.stream().mapToInt(Item::getPrice).sum();
     }
 
 }
